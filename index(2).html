@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MATHOS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>MATHOS<span id="day-number"></span></h1>
+  <div class="streak-container">
+  <span class="flame">🔥</span>
+  <span id="streak-count">0</span>
+  <span class="streak-label">jours d'affilée</span><br>
+</div>
+  <div id="grid"></div>
+  <div id="message"></div>
+  
+  <button id="share-btn" style="display: none;">Partager mon score 📋</button>
+  
+  <div id="keyboard"></div>
+
+  
+  <!-- Bouton fixe à gauche -->
+<button id="rules-btn" class="rules-btn">💡 Comment jouer ?</button>
+
+<!-- Panneau / Modale des règles -->
+<div id="rules-modal" class="rules-modal">
+  <div class="rules-content">
+    <button id="close-rules" class="close-rules">&times;</button>
+    <h3>Règles du jeu</h3>
+    <p>Vous avez 6 essais pour deviner le calcul mathématique du jour.</p>
+    
+    <div class="rules-examples">
+      <div class="rule-item">
+        <span class="cell-demo correct">R</span>
+        <span><strong>Rouge :</strong> Le chiffre ou le signe est bien placé.</span>
+      </div>
+      <div class="rule-item">
+        <span class="cell-demo present">J</span>
+        <span><strong>Jaune :</strong> Le chiffre ou le signe est dans le calcul, mais mal placé.</span>
+      </div>
+      <div class="rule-item">
+        <span class="cell-demo absent">N</span>
+        <span><strong>Noir :</strong> Le chiffre ou le signe n'est pas dans le calcul.</span>
+      </div>
+    </div>
+  </div>
+</div>
+  <!-- Bouton Statistiques (à placer près de ton titre ou en haut à droite) -->
+<button id="stats-btn" class="icon-btn" title="Statistiques">📊</button>
+
+<!-- Modale des Statistiques -->
+<div id="stats-modal" class="modal">
+  <div class="modal-content">
+    <button id="close-stats" class="close-modal">&times;</button>
+    <h3>STATISTIQUES</h3>
+    
+    <div class="stats-summary">
+      <div class="stat-box">
+        <span id="stat-played" class="stat-number">0</span>
+        <span class="stat-label">Jouées</span>
+      </div>
+      <div class="stat-box">
+        <span id="stat-winrate" class="stat-number">0%</span>
+        <span class="stat-label">Victoires</span>
+      </div>
+      <div class="stat-box">
+        <span id="stat-streak" class="stat-number">0</span>
+        <span class="stat-label">Série en cours</span>
+      </div>
+      <div class="stat-box">
+        <span id="stat-max-streak" class="stat-number">0</span>
+        <span class="stat-label">Série max</span>
+      </div>
+    </div>
+
+    <div id="guess-distribution" class="guess-distribution">
+      <!-- Généré dynamiquement en JS -->
+    </div>
+  </div>
+</div>
+  <footer>
+  <p>Créé par <a href="https://instagram.com/thibr.p" target="_blank" rel="noopener noreferrer">Thibaldo</a></p>
+</footer>
+  <script src="script.js"></script>
+</body>
+</html>

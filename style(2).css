@@ -1,0 +1,481 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #121213;
+  color: #ffffff;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+}
+
+#day-number {
+  font-size: 1rem;
+  font-weight: normal;
+  color: #a6a6a8;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
+#grid {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 420px; /* Un peu plus large pour caler 9 cases confortablement */
+}
+
+.row {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+}
+
+.cell {
+  box-sizing: border-box;
+  aspect-ratio: 1 / 1; /* Maintient un carré strict */
+  width: 100%;
+  height: auto; /* S'assure que la hauteur s'aligne sur la largeur */
+  
+  border: 2px solid #3a3a3c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Taille de police réactive qui s'adapte automatiquement */
+  font-size: clamp(0.9rem, 3.5vw, 1.5rem); 
+  line-height: 1;
+  font-weight: bold;
+  text-transform: uppercase;
+  overflow: hidden; /* Empêche le texte de déformer la case */
+}
+
+.correct {
+  background-color: #D98327;
+  border-color: #D98327;
+}
+
+.present {
+  background-color: #5D9253;
+  border-color: #5D9253;
+  border-radius: 50%;
+}
+
+.absent {
+  background-color: #3a3a3c;
+  border-color: #3a3a3c;
+}
+
+#message {
+  font-size: 1.2rem;
+  font-weight: bold;
+  height: 30px;
+  color: #f8f9fa;
+}
+
+#share-btn {
+  margin-top: 15px;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #ffffff;
+  background-color: #D98327; /* Rouge SUTOM */
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+#share-btn:hover {
+  background-color: #D98327;
+}
+
+#share-btn:active {
+  transform: scale(0.98);
+}
+
+/* Compteur de Série (Streak) */
+.streak-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 1 rem;
+  font-weight: italic;
+  margin-bottom: 15px;
+  background-color: #1e293b;
+  padding: 8px 16px;
+  border-radius: 20px;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.flame {
+  font-size: 1.5rem;
+  animation: pulse 1.5s infinite alternate;
+}
+
+/* Animations des cases */
+.cell.pop {
+  animation: pop 0.1s ease-in-out;
+}
+
+.cell.flip {
+  animation: flip 0.5s ease-forward;
+}
+
+.row.shake {
+  animation: shake 0.4s ease-in-out;
+}
+
+.row.win .cell {
+  animation: bounce 0.6s ease-in-out;
+}
+
+/* Keyframes */
+@keyframes pulse {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+@keyframes flip {
+  0% { transform: rotateX(0deg); }
+  50% { transform: rotateX(90deg); }
+  100% { transform: rotateX(0deg); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-8px); }
+  40%, 80% { transform: translateX(8px); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+#keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 500px;
+  margin-top: 15px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+
+.key {
+  font-family: inherit;
+  font-size: clamp(0.75rem, 2.5vw, 1rem);
+  font-weight: bold;
+  border: none;
+  padding: 0;
+  height: 50px;
+  border-radius: 4px;
+  background-color: #818384;
+  color: #ffffff;
+  cursor: pointer;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.key:active {
+  transform: scale(0.95);
+}
+
+.key-large {
+  flex: 1.5;
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+}
+
+/* Couleurs d'état des touches du clavier */
+.key.correct {
+  background-color: #D98327 !important; /* Rouge */
+}
+
+.key.present {
+  background-color: #5D9253 !important; /* Jaune */
+}
+
+.key.absent {
+  background-color: #3a3a3c !important; /* Noir */
+  opacity: 0.6;
+}
+
+/* Pied de page */
+footer {
+  margin-top: 30px;
+  padding: 15px 0;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #888888;
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+footer a:hover {
+  color: #D98327; /* Devient rouge au survol */
+  text-decoration: underline;
+}
+
+/* Bouton "Comment jouer" fixe à gauche */
+.rules-btn {
+  position: fixed;
+  left: 10px;
+  top: 20px;
+  background-color: #2b2b2c;
+  color: #fff;
+  border: 1px solid #444;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  z-index: 100;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.rules-btn:hover {
+  background-color: #3a3a3c;
+  transform: scale(1.05);
+}
+
+/* Modale / Panneau des règles */
+.rules-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.rules-modal.active {
+  display: flex;
+}
+
+.rules-content {
+  background-color: #121213;
+  border: 1px solid #3a3a3c;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 400px;
+  width: 100%;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+}
+
+.close-rules {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.close-rules:hover {
+  color: #fff;
+}
+
+/* Démonstrations de couleurs */
+.rules-examples {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rule-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+}
+
+.cell-demo {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Couleurs des démos */
+.cell-demo.correct { background-color: #D98327; color: white; }
+.cell-demo.present { background-color: #5D9253; color: white; }
+.cell-demo.absent { background-color: #2b2b2c; color: white; }
+
+#keyboard {
+  margin-bottom: 25px; /* Ajuste la valeur selon l'espace souhaité (ex: 20px, 30px) */
+}
+
+/* Bouton icône haut de page */
+.icon-btn {
+  background: #2b2b2c;
+  color: #ffffff;
+  padding: 20px 20px;
+  font-family: Helvetica;
+  border-radius:50px;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.15);
+}
+
+/* Structure Modale */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.75);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
+
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+  background-color: #121213;
+  border: 1px solid #3a3a3c;
+  border-radius: 10px;
+  padding: 24px;
+  max-width: 420px;
+  width: 100%;
+  color: #fff;
+  position: relative;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+  text-align: center;
+}
+
+.close-modal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.close-modal:hover {
+  color: #fff;
+}
+
+/* Grille des 4 statistiques */
+.stats-summary {
+  display: flex;
+  justify-content: space-around;
+  margin: 20px 0;
+}
+
+.stat-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stat-number {
+  font-size: 1.8rem;
+  font-weight: bold;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: #aaa;
+  margin-top: 4px;
+}
+
+/* Histogramme */
+.guess-distribution {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.dist-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.dist-bar-container {
+  flex-grow: 1;
+  background-color: #2b2b2c;
+  border-radius: 4px;
+  overflow: hidden;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.dist-bar {
+  background-color: #538d4e;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  font-weight: bold;
+  font-size: 0.75rem;
+  min-width: 20px;
+  transition: width 0.4s ease;
+}
+
+.dist-bar.zero {
+  background-color: transparent;
+  color: #aaa;
+}
